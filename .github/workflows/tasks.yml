@@ -1,12 +1,13 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: cleanup-task
+  name: nose-task
 spec:
   steps:
-    - name: cleanup
-      image: alpine
+    - name: run-nose-tests
+      image: python:3.9
       script: |
-        #!/bin/sh
-        echo "Cleaning up temporary files..."
-        rm -rf /workspace/temp-files
+        #!/bin/bash
+        echo "Running unit tests with nose..."
+        pip install nose
+        nosetests
